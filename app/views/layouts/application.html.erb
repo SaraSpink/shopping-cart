@@ -9,6 +9,14 @@
   </head>
 
   <body>
-    <%= yield %>
+      <%= render "layouts/menu" %>
+
+
+      <div class="container">
+
+      <%= flash[:alert] %>
+      <%= flash[:notice] %>
+      <%= yield %>
+    </div>
   </body>
 </html>
