@@ -24,17 +24,22 @@ class OrderItemsController < ApplicationController
   # POST /order_items
   # POST /order_items.json
   def create
-    @order_item = OrderItem.new(order_item_params)
+    # @order_item = OrderItem.new(order_item_params) ///created by scaffold
+    @order = current_order
+    @item = @order.order_items.new(item_params)
+    @order.save
+     session[:order_id] = @order.id
+     redirect_to products_path
 
-    respond_to do |format|
-      if @order_item.save
-        format.html { redirect_to @order_item, notice: 'Order item was successfully created.' }
-        format.json { render :show, status: :created, location: @order_item }
-      else
-        format.html { render :new }
-        format.json { render json: @order_item.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @order_item.save
+    #     format.html { redirect_to @order_item, notice: 'Order item was successfully created.' }
+    #     format.json { render :show, status: :created, location: @order_item }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @order_item.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /order_items/1
@@ -54,21 +59,26 @@ class OrderItemsController < ApplicationController
   # DELETE /order_items/1
   # DELETE /order_items/1.json
   def destroy
-    @order_item.destroy
-    respond_to do |format|
-      format.html { redirect_to order_items_url, notice: 'Order item was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @order = current_order
+    @item = @order.order_items.find(params[:id])
+    @item.destroy
+    @order.save
+    redirect_to cart_path
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order_item
-      @order_item = OrderItem.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def order_item_params
-      params.require(:order_item).permit(:quantity, :product_id, :order_id)
+    def item_params
+       params.require(:order_item).permit(:quantity, :product_id)
     end
+    # Use callbacks to share common setup or constraints between actions.
+    # def set_order_item
+    #   @order_item = OrderItem.find(params[:id])
+    # end
+    #
+    # # Never trust parameters from the scary internet, only allow the white list through.
+    # def order_item_params
+    #   params.require(:order_item).permit(:quantity, :product_id, :order_id)
+    # end
 end
