@@ -35,6 +35,7 @@ gem 'faker'
 
 gem 'devise'
 gem 'paperclip', '~> 4.1'
+gem 'rest-client'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
