@@ -18,8 +18,10 @@ class OrderItemsController < ApplicationController
 
   def edit
     @order_item = OrderItem.find(params[:id])
-
-
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
 
@@ -33,15 +35,12 @@ class OrderItemsController < ApplicationController
 
   def update
   @order_item = OrderItem.find(params[:id])
-  if @order_item.update(item_params)
-    respond_to do |format|
-      format.html { redirect_to cart_path() }
-      format.js
-    end
-   else
+    if @order_item.update(item_params)
+    redirect_to cart_path
+    else
     render :edit
+     end
    end
- end
 
 
 
