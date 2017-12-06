@@ -19,6 +19,7 @@ class OrderItemsController < ApplicationController
   def edit
     @order_item = OrderItem.find(params[:id])
 
+
   end
 
 
@@ -33,12 +34,14 @@ class OrderItemsController < ApplicationController
   def update
   @order_item = OrderItem.find(params[:id])
   if @order_item.update(item_params)
-    redirect_to cart_path
-  else
+    respond_to do |format|
+      format.html { redirect_to cart_path() }
+      format.js
+    end
+   else
     render :edit
-  end
-
-  end
+   end
+ end
 
 
 
