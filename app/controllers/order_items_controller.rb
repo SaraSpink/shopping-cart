@@ -6,6 +6,8 @@ class OrderItemsController < ApplicationController
 
 
   def show
+    @order_item = OrderItem.find(params[:id])
+
   end
 
 
@@ -15,6 +17,8 @@ class OrderItemsController < ApplicationController
 
 
   def edit
+    @order_item = OrderItem.find(params[:id])
+
   end
 
 
@@ -25,6 +29,17 @@ class OrderItemsController < ApplicationController
      session[:order_id] = @order.id
      redirect_to products_path
   end
+
+  def update
+  @order_item = OrderItem.find(params[:id])
+  if @order_item.update(item_params)
+    redirect_to cart_path
+  else
+    render :edit
+  end
+
+  end
+
 
 
   def destroy
