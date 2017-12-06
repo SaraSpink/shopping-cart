@@ -4,7 +4,8 @@ class ChargesController < ApplicationController
 
   def create
     # Amount in cents
-    @amount = 500
+
+    @amount = (current_order.total_price.to_d * 100).to_i
 
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
@@ -22,4 +23,8 @@ class ChargesController < ApplicationController
     flash[:error] = e.message
     redirect_to new_charge_path
   end
+
+  # private
+  #
+  # def amount_to_be
 end
