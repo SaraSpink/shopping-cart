@@ -31,12 +31,8 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-  @order = OrderItem.find(params[:id])
-  
-  @order_item = @order.where(:product_id =>
-       @order[:product_id]).first
-
-  if @order_item.update(product)
+  @order_item = OrderItem.find(params[:id])
+  if @order_item.update(item_params)
     redirect_to cart_path
   else
     render :edit
