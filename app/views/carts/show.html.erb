@@ -1,19 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+      <h3>cart for <%=current_user.email %></h3>
+      <br>
       <% if @order_items.any? %>
-      <% @order_items.each do |item| %>
-
-      <p><%= item.product.name %> | <%= link_to "Delete", order_item_path(item), :data => {:confirm => "You sure?", :method => "delete"} %> | <%= link_to "edit", edit_order_item_path(item), id: "edit_order_item_link", remote: true %></p>
-      <p> Unit Price: <%= number_to_currency item.product.price %> | Quantity: <%= item.quantity %> | Total Price: <%= number_to_currency (item.product.price * item.quantity) %></p>
-      <% end %>
-      <p>Your Total: <%= number_to_currency current_order.total_price %></p>
+        <% @order_items.each do |item| %>
+        <p><b><%= item.product.name %></b> | <%= link_to "Delete", order_item_path(item), :data => {:confirm => "You sure?", :method => "delete"} %> | <%= link_to "edit", edit_order_item_path(item), id: "edit_order_item_link", remote: true %></p>
+        <p> Unit Price: <%= number_to_currency item.product.price %> | Quantity: <%= item.quantity %> | Total Price: <%= number_to_currency (item.product.price * item.quantity) %></p>
+        <% end %>
+      <br>
+      <br>
+      <b>Your Total: <%= number_to_currency current_order.calculate_total %></p>
       <% else %>
-      <p>Your shopping cart is empty.</p>
+      <b>Your shopping cart is empty.</p>
       <% end %>
     </div>
     <div class="col-md-6">
-      <p>This is where we want our js stuff to show up</p>
       <span id="render_form_please"></span>
     </div>
   </div>

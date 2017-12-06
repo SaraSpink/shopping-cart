@@ -36,6 +36,7 @@ class OrderItemsController < ApplicationController
   def update
   @order_item = OrderItem.find(params[:id])
     if @order_item.update(item_params)
+    @order_item.save
     redirect_to cart_path
     else
     render :edit

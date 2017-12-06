@@ -1,5 +1,4 @@
-<h1>HELLO</h1>
-<h1>Editing <%= @order_item.product.name %></h1>
+<h1>Edit <%= @order_item.product.name %></h1>
 
 <%= form_with(model: @order_item, local: true) do |form| %>
   <% if @order_item.errors.any? %>
