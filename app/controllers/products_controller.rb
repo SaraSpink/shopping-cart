@@ -20,6 +20,10 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /products/1/edit
