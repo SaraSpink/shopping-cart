@@ -26,9 +26,11 @@ class OrderItemsController < ApplicationController
 
 
   def create
+    @order_items = OrderItem.all
     @order = current_order
     @item = @order.order_items.new(item_params)
     @order.save
+    @total_cost = current_order.calculate_total
      session[:order_id] = @order.id
      respond_to do |format|
        format.html { redirect_to products_path }
