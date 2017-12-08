@@ -5,8 +5,10 @@
       <br>
       <% if @order_items.any? %>
         <% @order_items.each do |item| %>
-        <p><b><%= item.product.name %></b> | <%= link_to "Delete", order_item_path(item), :data => {:confirm => "You sure?", :method => "delete"} %> | <%= link_to "edit", edit_order_item_path(item), remote: true %></p>
+        <div id= '<%= item.id %>'>
+        <p><b><%= item.product.name %></b> | <%= link_to "Delete", order_item_path(item), :data => {:confirm => "You sure?", :method => "delete"}, remote: true %> | <%= link_to "edit", edit_order_item_path(item), remote: true %></p>
         <p> Unit Price: <%= number_to_currency item.product.price %> | Quantity: <%= item.quantity %> | Total Price: <%= number_to_currency (item.product.price * item.quantity) %></p>
+        </div>
         <% end %>
       <br>
       <br>
